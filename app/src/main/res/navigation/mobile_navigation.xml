@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_reader">
+    <fragment
+        android:id="@+id/navigation_bookshelf"
+        android:name="com.example.koreader.ui.bookshelf.BookshelfFragment"
+        android:label="@string/bookshelf"
+        tools:layout="@layout/fragment_bookshelf" />
+    <fragment
+        android:id="@+id/navigation_vocab"
+        android:name="com.example.koreader.ui.vocab.VocabFragment"
+        android:label="@string/vocab"
+        tools:layout="@layout/fragment_vocab" />
+    <fragment
+        android:id="@+id/navigation_reader"
+        android:name="com.example.koreader.ui.reader.ReaderFragment"
+        android:label="@string/reader"
+        tools:layout="@layout/fragment_reader" />
+</navigation>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_reader"
+        android:icon="@drawable/ic_reader"
+        android:title="@string/reader" />
+    <item
+        android:id="@+id/navigation_vocab"
+        android:icon="@drawable/ic_vocab"
+        android:title="@string/vocab" />
+    <item
+        android:id="@+id/navigation_bookshelf"
+        android:icon="@drawable/ic_books"
+        android:title="@string/bookshelf" />
+
+</menu>
