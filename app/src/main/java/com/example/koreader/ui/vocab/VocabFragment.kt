@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.koreader.databinding.FragmentVocabBinding
+import com.example.koreader.ui.SharedViewModel
 
 class VocabFragment : Fragment() {
 
@@ -16,24 +16,22 @@ class VocabFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private lateinit var sharedViewModel: SharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val vocabViewModel =
-            ViewModelProvider(this).get(VocabViewModel::class.java)
-
+        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         _binding = FragmentVocabBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        val textView: TextView = binding.textVocab
-        vocabViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        sharedViewModel.wordList.observe(viewLifecycleOwner) { newWordList ->
+            //adapter.setData(newWordList)
         }
-        return root
+        return binding.root
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
