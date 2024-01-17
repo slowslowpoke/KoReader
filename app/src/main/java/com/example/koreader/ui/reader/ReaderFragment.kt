@@ -15,6 +15,7 @@ import com.example.koreader.R
 import com.example.koreader.databinding.FragmentReaderBinding
 import com.example.koreader.ui.SharedViewModel
 
+const val TAG = "ReaderFragment"
 class ReaderFragment : Fragment() {
 
     private var _binding: FragmentReaderBinding? = null
@@ -65,12 +66,13 @@ class ReaderFragment : Fragment() {
             if (event?.action == MotionEvent.ACTION_UP) {
                 val touchPosition = tvTextReader.getOffsetForPosition(event.x, event.y)
                 Log.d(
-                    "ReaderFragment",
+                    TAG,
                     "X is ${event.x}, Y is ${event.y}, TOUCH POSITION IS  $touchPosition"
                 )
                 val clickedWord = getWordAtPosition(touchPosition - 1)
                 clickedWord?.let {
                     handleWordClick(it)
+                    Log.d(TAG,sharedViewModel.wordList.value.toString())
                 }
             }
             return true
@@ -79,15 +81,16 @@ class ReaderFragment : Fragment() {
 
     private fun handleWordClick(word: String) {
         val newWord = word.trim { it.isWhitespace() || !it.isLetter() }
-        Log.d("ReaderFragment", newWord)
+        Log.d(TAG, newWord)
 
         AlertDialog.Builder(requireContext())
-            .setMessage("New word: ${newWord.uppercase()}")
-            .setPositiveButton("ADD"){_,_ -> sharedViewModel.addWord(newWord)
+            .setMessage("Новое слово: ${newWord.uppercase()}")
+            .setPositiveButton("ДОБАВИТЬ"){_,_ -> sharedViewModel.addWord(newWord)
                 Toast.makeText(requireContext(), "Added ${newWord.uppercase()}", Toast.LENGTH_SHORT).show()
             }
-            .setNegativeButton("CANCEL"){_,_ -> }
+            .setNegativeButton("ОТМЕНА"){_,_ -> }
             .create().show()
+
     }
 
     override fun onDestroyView() {
