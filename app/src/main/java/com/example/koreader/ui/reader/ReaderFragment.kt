@@ -2,7 +2,6 @@ package com.example.koreader.ui.reader
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -13,9 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.koreader.R
 import com.example.koreader.databinding.FragmentReaderBinding
+import com.example.koreader.model.Word
 import com.example.koreader.ui.SharedViewModel
 
 const val TAG = "ReaderFragment"
+
 class ReaderFragment : Fragment() {
 
     private var _binding: FragmentReaderBinding? = null
@@ -65,14 +66,9 @@ class ReaderFragment : Fragment() {
         override fun onTouch(v: View?, event: MotionEvent?): Boolean {
             if (event?.action == MotionEvent.ACTION_UP) {
                 val touchPosition = tvTextReader.getOffsetForPosition(event.x, event.y)
-                Log.d(
-                    TAG,
-                    "X is ${event.x}, Y is ${event.y}, TOUCH POSITION IS  $touchPosition"
-                )
                 val clickedWord = getWordAtPosition(touchPosition - 1)
                 clickedWord?.let {
                     handleWordClick(it)
-                    Log.d(TAG,sharedViewModel.wordList.value.toString())
                 }
             }
             return true
@@ -80,15 +76,21 @@ class ReaderFragment : Fragment() {
     }
 
     private fun handleWordClick(word: String) {
-        val newWord = word.trim { it.isWhitespace() || !it.isLetter() }
-        Log.d(TAG, newWord)
+        val newWordOriginal = word.trim { it.isWhitespace() || !it.isLetter() }
+        val newWord = Word(1, newWordOriginal, "random translation")
 
         AlertDialog.Builder(requireContext())
-            .setMessage("Новое слово: ${newWord.uppercase()}")
-            .setPositiveButton("ДОБАВИТЬ"){_,_ -> sharedViewModel.addWord(newWord)
-                Toast.makeText(requireContext(), "Added ${newWord.uppercase()}", Toast.LENGTH_SHORT).show()
+            .setMessage("Новое слово: ${newWordOriginal.uppercase()}")
+            .setPositiveButton("ДОБАВИТЬ") { _, _ ->
+                sharedViewModel.addWord(newWord)
+                Toast.makeText(
+                    requireContext(),
+                    "Добавлено в словарь: ${newWordOriginal.uppercase()}",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
             }
-            .setNegativeButton("ОТМЕНА"){_,_ -> }
+            .setNegativeButton("ОТМЕНА") { _, _ -> }
             .create().show()
 
     }
