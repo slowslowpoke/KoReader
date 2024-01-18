@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.koreader.databinding.FragmentVocabBinding
-import com.example.koreader.ui.SharedViewModel
+import com.example.koreader.viewmodel.SharedViewModel
 
 class VocabFragment : Fragment() {
 

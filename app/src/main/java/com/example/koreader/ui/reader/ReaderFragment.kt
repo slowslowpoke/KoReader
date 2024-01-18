@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.koreader.R
 import com.example.koreader.databinding.FragmentReaderBinding
 import com.example.koreader.model.Word
-import com.example.koreader.ui.SharedViewModel
+import com.example.koreader.viewmodel.SharedViewModel
 
 const val TAG = "ReaderFragment"
 
@@ -77,9 +77,9 @@ class ReaderFragment : Fragment() {
 
     private fun handleWordClick(word: String) {
         val newWordOriginal = word.trim { it.isWhitespace() || !it.isLetter() }
-        val newWord = Word(1, newWordOriginal, "random translation")
+        val newWord = Word(0, newWordOriginal, "random translation")
 
-        AlertDialog.Builder(requireContext())
+        val alertDialog = AlertDialog.Builder(requireContext())
             .setMessage("Новое слово: ${newWordOriginal.uppercase()}")
             .setPositiveButton("ДОБАВИТЬ") { _, _ ->
                 sharedViewModel.addWord(newWord)
@@ -91,7 +91,10 @@ class ReaderFragment : Fragment() {
                     .show()
             }
             .setNegativeButton("ОТМЕНА") { _, _ -> }
-            .create().show()
+            .create()
+
+        alertDialog.window?.setBackgroundDrawableResource(R.drawable.new_word_dialog_background)
+        alertDialog.show()
 
     }
 
