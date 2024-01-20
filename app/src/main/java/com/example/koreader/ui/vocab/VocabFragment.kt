@@ -42,7 +42,7 @@ class VocabFragment : Fragment() {
 
         //Иниц. вью модель. По идее она у меня Shared, но хз как пойдет пока...
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        sharedViewModel.wordList.observe(viewLifecycleOwner) { newWordList ->
+        sharedViewModel.vocabList.observe(viewLifecycleOwner) { newWordList ->
             adapter.setData(newWordList)
         }
 

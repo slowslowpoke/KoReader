@@ -8,6 +8,8 @@ buildscript {
         nav_version = "2.7.6"
         room_version = "2.6.1"
         lifecycle_version = "2.6.2"
+        retrofit_version = "2.9.0"
+        coroutines_version = "1.7.1"
     }
 
     dependencies {
